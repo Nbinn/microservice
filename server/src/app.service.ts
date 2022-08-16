@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UserEvent } from './user.event';
-import { MailService } from './Mail/mail.service';
+import { User } from './dto/user.dto';
+import { MailService } from './mail/mail.service';
+
 @Injectable()
 export class AppService {
 
@@ -10,9 +11,14 @@ export class AppService {
     return 'Hello World!';
   }
 
-  HandleUser(data: UserEvent) {
-    console.log('UserCreated', data)
-    this.mailService.sendUserConfirmation(data)
+  HandleUser(data: User) {
+    const verifyToken = Math.random()
+      .toString(36)
+      .replace(/[^a-z]+/g, '')
+      .substr(0, 5)
+      .toUpperCase();
+    console.log('verifyToken :>> ', verifyToken);
+    // this.mailService.sendUserConfirmation(data, verifyToken)
   }
 
 

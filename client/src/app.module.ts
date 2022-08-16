@@ -17,7 +17,7 @@ import { AppService } from './app.service';
           port: 3001,
         }
       }
-    ])
+    ]),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,3 +1,5 @@
+import { User } from "./dto/user.dto";
+
 export class UserEvent {
-    constructor(public readonly email: string) { }
+    constructor(public readonly user: User) { }
 }

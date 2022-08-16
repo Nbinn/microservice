@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { User } from './user.dto';
+import { User } from './dto/user.dto';
 import { UserEvent } from './user.event';
+
 
 @Injectable()
 export class AppService {
@@ -16,13 +17,20 @@ export class AppService {
     return 'Hello World!';
   }
 
-  createUser(user: User) {
-    this.users.push(user)
-    this.client.emit('user_created', new UserEvent(user.email))
-    this.analyticsClient.emit('user_created', new UserEvent(user.email))
-  }
+  // createUser(user: User) {
+  //   this.client.emit('user_created', new UserEvent(user))
+  //   this.analyticsClient.emit('user_created', new UserEvent(user.email))
+  // }
 
   getAnalytics() {
     return this.analyticsClient.send({ cmd: 'get_analytics' }, {});
   }
+
+  register(data: User) {
+    this.users.push(data)
+    console.log('data :>> ', data);
+    this.client.emit('register', data)
+  }
 }
+
+
